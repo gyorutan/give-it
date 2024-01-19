@@ -11,10 +11,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
   const logout = () => {
-    alert("로그아웃");
+    toast.success("로그아웃");
   };
   return (
     <div className="fixed top-0 mx-auto border-b border-zinc-700 w-full px-3 max-w-[767px] h-[45px] flex justify-between items-center">

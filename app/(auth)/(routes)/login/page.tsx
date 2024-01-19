@@ -17,6 +17,13 @@ const Login = () => {
           </Link>
           <span className="text-zinc-700">|</span>
           <Link
+            href={"/findpassword"}
+            className="text-sm text-white/70 hover:text-white transition"
+          >
+            비밀번호 찾기
+          </Link>
+          <span className="text-zinc-700">|</span>
+          <Link
             href={"/signup"}
             className="text-sm text-white/70 hover:text-white transition"
           >

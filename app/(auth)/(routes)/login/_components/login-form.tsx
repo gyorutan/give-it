@@ -1,17 +1,50 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { api } from "@/lib/api";
+import axios from "axios";
+import { Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 import React, { ChangeEvent, useState } from "react";
+import toast from "react-hot-toast";
 
 const LoginForm = () => {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     studentId: "",
     password: "",
   });
+  const [loading, setLoading] = useState(false);
+
+  const resetFormData = () => {
+    setFormData({
+      ...formData,
+      studentId: "",
+      password: "",
+    });
+  };
 
   const handleLogin = async (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    alert("로그인");
+    try {
+      setLoading(true);
+      const data = await axios
+        .post(`${api}/auth/login`, formData)
+        .then((res) => res.data);
+      if (!data.success) {
+        toast.error(data.message);
+        resetFormData();
+      } else {
+        toast.success(data.message);
+        resetFormData();
+        router.push("/main");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("알 수 없는 오류");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -73,9 +106,15 @@ const LoginForm = () => {
               transition"
         />
       </div>
-      <Button type="submit" variant={"blue"} className="w-full">
-        로그인
-      </Button>
+      {loading ? (
+        <Button disabled type="submit" variant={"blue"} className="w-full">
+          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+        </Button>
+      ) : (
+        <Button type="submit" variant={"blue"} className="w-full">
+          로그인
+        </Button>
+      )}
     </form>
   );
 };
