@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
-  const isLoggedIn = request.cookies.has("access_Token");
+  const isLoggedIn = request.cookies.get("access_Token")?.value;
   const pathname = request.nextUrl.pathname;
   const AUTH_URL =
     pathname === "/auth" ||
