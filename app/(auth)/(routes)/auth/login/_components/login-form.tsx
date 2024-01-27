@@ -39,11 +39,11 @@ const LoginForm = () => {
       if (!data.success) {
         toast.error(data.message);
       } else {
+        router.push("/");
         console.log(data.user.name);
         auth.login();
         auth.setUserId(data.user.id);
         auth.setUsername(data.user.name);
-        router.push("/");
         toast.success(data.message);
       }
     } catch (error) {
