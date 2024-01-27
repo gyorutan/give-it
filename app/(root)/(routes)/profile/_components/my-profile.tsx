@@ -35,7 +35,6 @@ const MyProfile = () => {
       .then((res) => res.data);
     if (data.success) {
       clearStorage();
-      auth.logout();
       router.push("/auth");
       toast.success("로그아웃되었습니다");
     }
